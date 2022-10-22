@@ -6,39 +6,37 @@ import pro.sky.skyprospringdemotwo.exception.EmployeeAlreadyAddedException;
 import pro.sky.skyprospringdemotwo.exception.EmployeeNotFoundException;
 import pro.sky.skyprospringdemotwo.model.Employee;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+
 @Service
 
 public class EmployeeServiceImpl implements EmployeeService {
 
-    public  final  List<Employee> employeeList;
+    public final Map<String, Employee> employees;
 
     public EmployeeServiceImpl() {
-        this.employeeList = new ArrayList<>();
+        this.employees = new HashMap<>();
     }
 
 
     @Override
     public Employee add(String firstName, String lastName) {
         Employee employee = new Employee(firstName, lastName);
-        if (employeeList.contains(employee)) {
+        if (employees.containsKey(employee.getFullName())) {
 
             throw new EmployeeAlreadyAddedException();
 
         }
-        employeeList.add(employee);
-        return employee;
+        employees.put(employee.getFullName(),employee);
 
+        return employee;
     }
 
     @Override
     public Employee remove(String firstName, String lastName) {
         Employee employee = new Employee(firstName, lastName);
-        if (employeeList.contains(employee)) {
-            employeeList.remove(employee);
+        if (employees.containsKey(employee.getFullName())) {
+            employees.remove(employee.getFullName());
             return employee;
         }
         throw new EmployeeNotFoundException();
@@ -48,14 +46,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee find(String firstName, String lastName) {
         Employee employee = new Employee(firstName, lastName);
-        if (employeeList.contains(employee)) {
+        if (employees.containsKey(employee.getFullName())) {
             return employee;
         }
-       throw new EmployeeNotFoundException();
+        throw new EmployeeNotFoundException();
     }
 
     @Override
     public Collection<Employee> findAll() {
-        return Collections.unmodifiableList(employeeList);
+        return Collections.unmodifiableCollection(employees.values());
     }
 }
