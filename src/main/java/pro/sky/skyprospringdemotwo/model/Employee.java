@@ -1,16 +1,32 @@
 package pro.sky.skyprospringdemotwo.model;
 
 import java.util.Objects;
-
+// Работник Класс
 public class Employee {
     private final String firstName;
     private final String lastName;
 
+    public int getDepartment() {
+        return department;
+    }
 
-    public Employee(String firstName, String lastName) {
+    public Double getSalary() {
+        return salary;
+    }
+
+    private final int department;
+    private final Double salary;
+//Конструктор
+
+    public Employee(String firstName, String lastName ,int department, Double salary) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.department = department;
+        this.salary = salary;
     }
+
+
+
 
     public String getFirstName() {
         return firstName;
@@ -42,4 +58,6 @@ public class Employee {
                 ", lastName='" + lastName + '\'' +
                 '}';
     }
+
+
 }
