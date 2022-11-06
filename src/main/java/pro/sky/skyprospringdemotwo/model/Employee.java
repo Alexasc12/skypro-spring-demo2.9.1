@@ -5,7 +5,8 @@ import java.util.Objects;
 public class Employee {
     private final String firstName;
     private final String lastName;
-
+    private final int department;
+    private final Double salary;
     public int getDepartment() {
         return department;
     }
@@ -14,8 +15,7 @@ public class Employee {
         return salary;
     }
 
-    private final int department;
-    private final Double salary;
+
 //Конструктор
 
     public Employee(String firstName, String lastName ,int department, Double salary) {
